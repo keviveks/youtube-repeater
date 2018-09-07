@@ -1,24 +1,14 @@
+/**
+ * 
+ * @author: keviveks <keviveks@gmail.com>
+ */
 
-var vs = document.getElementsByClassName("video-stream")[0];
 
 /**
  * Remove the extension data from storage
  */
 chrome.storage.sync.remove(['youtube_repeater_extension'], function() {
     console.log('youtube repeater extension storage cleared!');
-});
-
-/**
- * Add repeat event to youtube video stream
- */
-vs.addEventListener("ended", function(event) {
-    // check extension repeater is on for this video
-    chrome.storage.sync.get(['youtube_repeater_extension'], function(data) {
-        ytData = JSON.parse(atob(data.youtube_repeater_extension));
-        if (ytData.repeat && ytData.url === window.location.href) {
-            vs.play();
-        }
-    });
 });
 
 /**
@@ -29,7 +19,29 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         chrome.storage.sync.set({
             'youtube_repeater_extension': btoa(JSON.stringify(request.data))
         }, function() {
-            console.log('saved data in storage!!');
+            // get the video stream from the dom
+            var videoStream = document.getElementsByTagName("video")[0];
+            /**
+             * Add repeat event to youtube video stream
+             */
+            videoStream.addEventListener("ended", function(event) {
+                // check extension repeater is on for this video
+                chrome.storage.sync.get(['youtube_repeater_extension'], function(data) {
+                    ytData = JSON.parse(atob(data.youtube_repeater_extension));
+                    if (ytData.repeat && ytData.url === window.location.href) {
+                        videoStream.play();
+                    }
+                });
+            });
+            sendResponse({});
         });
+        return true;
+    } else if (request.message === "popup_load") {
+        // check extension repeater is on for this video
+        chrome.storage.sync.get(['youtube_repeater_extension'], function(data) {
+            ytData = JSON.parse(atob(data.youtube_repeater_extension));
+            sendResponse(ytData);
+        });
+        return true;
     }
 });

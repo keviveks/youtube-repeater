@@ -1,0 +1,76 @@
+body {
+    background: #f1f1f1;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    height: 320px;
+    width: 320px;
+    margin: 0;
+    overflow: hidden;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.header {
+    align-items: center;
+    background: #fff;
+    height: 64px;
+    display: flex;
+}
+
+.header-link {
+    color: #d20505;
+    font-weight: bold;
+    line-height: 20px;
+    text-decoration: none;
+    margin: 0px auto;
+}
+
+.header-link:focus {
+    outline: none;
+}
+
+.header-logo {
+    display: inline-block;
+    width: 50px;
+    margin-right: 10px
+}
+
+.header-text {
+    display: inline-block;
+}
+
+.container {
+    overflow-y: auto;
+    padding: 16px 24px 0px 24px;
+    text-align: center;
+    height: 240px;
+    align-items: center;
+    justify-content: center;
+}
+
+.container button {
+    cursor: pointer;
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    color: #fff;
+    background: #d20505;
+    box-shadow: 0 3px #ab3c3c;
+    font-family: inherit;
+    font-weight: 700;
+    outline: none;
+    margin-top: 30px;
+}
+
+span#youtubeURL {
+    font-size: 12px;
+    color: #333;
+    display: block;
+}
+
+button#reloadYouTube:disabled {
+    background: #ef6a6a;
+    box-shadow: 0 3px #ab3c3c;
+    cursor: not-allowed;
+}

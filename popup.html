@@ -5,15 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>YouTube Repeater</title>
+    <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-    <div id="youTubePage">
-        <h1>YouTube Reloader popup</h1>
-        <span id="youTubeURL"></span>
-        <button id="reloadYouTube" disabled="disabled" title="You need to watch a youtube video to reload the">Reload YouTube</button>
+    <div class="header">
+        <a href="#" class="header-link" target="_blank">
+            <img class="header-logo" src="./icon.png">
+            <h1 class="header-text">Repeater</h1>
+        </a>
     </div>
-    <div id="otherPages">
-        <p>This extension will only work in <a href="https://www.youtube.com">youtube.com</a> site</p>
+
+    <div class="container">
+        <div id="youtubePage">
+            <p id="youtubeText"></p>
+            <span id="youtubeURL"></span>
+            <button id="reloadYouTube" disabled="disabled" title="You need to watch a video to repeat!">Repeat YouTube</button>
+        </div>
+        <div id="otherPages">
+            <p>This extension will work only in youtube page.</p>
+            <button id="visitYouTube">Visit YouTube</button>
+        </div>
     </div>
     <script src="./popup.js"></script>
 </body>
