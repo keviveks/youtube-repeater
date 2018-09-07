@@ -31,7 +31,9 @@ body {
 .header-logo {
     display: inline-block;
     width: 50px;
-    margin-right: 10px
+    margin-right: 10px;
+    position: relative;
+    top: 15px;
 }
 
 .header-text {
