@@ -1,0 +1,32 @@
+{
+    "manifest_version": 2,
+    "name": "YouTube Repeater",
+    "description": "Repeat your YouTube favorite video for thousand times",
+    "version": "1.0",
+    "author": "Vivek S",
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_title": "YouTube Repeater",
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "http://youtube.com/*",
+                "https://youtube.com/*",
+                "http://www.youtube.com/*",
+                "https://www.youtube.com/*"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ],
+    "permissions": [
+        "tabs",
+        "storage"
+    ]
+}
