@@ -33,7 +33,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                     }
                 });
             });
-            sendResponse({});
+            sendResponse({ repeat: true });
         });
         return true;
     } else if (request.message === "popup_load") {
@@ -41,6 +41,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         chrome.storage.sync.get(['youtube_repeater_extension'], function(data) {
             ytData = JSON.parse(atob(data.youtube_repeater_extension));
             sendResponse(ytData);
+        });
+        return true;
+    } else if (request.message === "stop_repeat") {
+        // check extension repeater is on for this video
+        chrome.storage.sync.remove(['youtube_repeater_extension'], function(data) {
+            sendResponse({ stopped: true });
         });
         return true;
     }

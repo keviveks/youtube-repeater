@@ -69,8 +69,12 @@ span#youtubeURL {
     display: block;
 }
 
-button#reloadYouTube:disabled {
+button#repeatYoutube:disabled {
     background: #ef6a6a;
     box-shadow: 0 3px #ab3c3c;
     cursor: not-allowed;
+}
+
+button#stopYoutube {
+    margin: 30px auto;
 }

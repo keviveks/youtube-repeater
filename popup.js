@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     var url = "https://www.youtube.com";
     var watchUrl = url + "/watch?v=";
-    var reloadYouTube = document.getElementById('reloadYouTube');
+    var repeatYoutube = document.getElementById('repeatYoutube');
+    var stopYoutube = document.getElementById('stopYoutube');
     var youtubePage = document.getElementById('youtubePage');
     var otherPages = document.getElementById('otherPages');
     var youtubeText = document.getElementById('youtubeText');
@@ -18,10 +19,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (activeTab.url.indexOf(watchUrl) > -1) {
                 youtubeText.innerHTML = "Click the Repeat button to enjoy the video unlimit..";
                 youtubeURL.innerHTML = activeTab.url;
-                reloadYouTube.removeAttribute("disabled");
+                repeatYoutube.removeAttribute("disabled");
+                stopYoutube.style.display = "none";
             } else {
                 youtubeText.innerHTML = "You are not watching any video to repeat!";
-                reloadYouTube.setAttribute("disabled", "disabled");
+                repeatYoutube.setAttribute("disabled", "disabled");
+                stopYoutube.style.display = "none";
             }
         } else {
             youtubePage.style.display = "none";
@@ -38,14 +41,15 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response && response.repeat && response.url === activeTab.url) {
                 youtubeText.innerHTML = "Repeater is running the video at _ time";
                 youtubeURL.innerHTML = activeTab.url;
-                reloadYouTube.setAttribute("disabled", "disabled");
+                repeatYoutube.style.display = "none";
+                stopYoutube.style.display = "block";
             }
         });
 
         /**
          * Repeat button click event handler
          */
-        reloadYouTube.addEventListener('click', function() {
+        repeatYoutube.addEventListener('click', function() {
             // sent message with youTube data
             chrome.tabs.sendMessage(activeTab.id, {
                 message: "repeat_youtube",
@@ -54,10 +58,32 @@ document.addEventListener('DOMContentLoaded', function() {
                     repeat: true
                 }
             }, function (response) {
-                console.log(response);
-                youtubeText.innerHTML = "This video will play unlimit.. enjoy!!";
-                youtubeURL.innerHTML = activeTab.url;
-                reloadYouTube.setAttribute("disabled", "disabled");
+                if (response.repeat) {
+                    youtubeText.innerHTML = "This video will play unlimit.. enjoy!!";
+                    youtubeURL.innerHTML = activeTab.url;
+                    repeatYoutube.setAttribute("disabled", "disabled");
+                    repeatYoutube.style.display = "none";
+                    stopYoutube.style.display = "block";
+                }
+            });
+        });
+
+        /**
+         * Stop repeat button event handler
+         */
+        stopYoutube.addEventListener("click", function() {
+            // sent message to stop repeat
+            chrome.tabs.sendMessage(activeTab.id, {
+                message: "stop_repeat",
+                data: {}
+            }, function (response) {
+                if (response.stopped) {
+                    youtubeText.innerHTML = "Click the Repeat button to enjoy the video unlimit..";
+                    youtubeURL.innerHTML = activeTab.url;
+                    repeatYoutube.removeAttribute("disabled");
+                    repeatYoutube.style.display = "block";
+                    stopYoutube.style.display = "none";
+                }
             });
         });
     });
