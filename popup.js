@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     repeat: true
                 }
             }, function (response) {
-                if (response.repeat) {
+                if (response && response.repeat) {
                     youtubeText.innerHTML = "This video will play unlimit.. enjoy!!";
                     youtubeURL.innerHTML = activeTab.url;
                     repeatYoutube.setAttribute("disabled", "disabled");
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 message: "stop_repeat",
                 data: {}
             }, function (response) {
-                if (response.stopped) {
+                if (response && response.stopped) {
                     youtubeText.innerHTML = "Click the Repeat button to enjoy the video unlimit..";
                     youtubeURL.innerHTML = activeTab.url;
                     repeatYoutube.removeAttribute("disabled");
